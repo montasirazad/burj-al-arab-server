@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
+require('dotenv').config()
 
 
 var admin = require("firebase-admin");
@@ -16,7 +17,7 @@ admin.initializeApp({
 
 
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://azad:azad1403@cluster0.wov4a.mongodb.net/burj-al-arab?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wov4a.mongodb.net/burj-al-arab?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("burj-al-arab").collection("bookings");
